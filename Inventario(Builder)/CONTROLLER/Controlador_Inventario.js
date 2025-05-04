@@ -13,6 +13,10 @@ class ControladorInventario {
         return this.gestor.agregarInsumoBebida(nombre, cantidad);
     }
 
+    agregarInsumoAlimento(nombre, cantidad) {
+        return this.gestor.agregarInsumoAlimento(nombre, cantidad);
+    }
+
     obtenerInventario() {
         return this.gestor.obtenerInventario();
     }

@@ -7,6 +7,7 @@ class GestorInventario {
         this.constructorInventario = new ConstructorInventario();
         this.creadorComida = new CreaInsumoComida();
         this.creadorBebida = new CreaInsumoBarraFria();
+        this.creadorAlimento = new CreaInsumoBarraFria();
         this.inventario = this.constructorInventario.construir();
     }
 
@@ -22,6 +23,14 @@ class GestorInventario {
         this.creadorBebida.setNombre(nombre);
         this.creadorBebida.setCantidad(cantidad);
         const insumo = this.creadorBebida.getProducto();
+        this.inventario.agregarInsumo(insumo);
+        return insumo;
+    }
+
+    agregarInsumoAlimento(nombre, cantidad) {
+        this.creadorAlimento.setNombre(nombre);
+        this.creadorAlimento.setCantidad(cantidad);
+        const insumo = this.creadorAlimento.getProducto();
         this.inventario.agregarInsumo(insumo);
         return insumo;
     }
