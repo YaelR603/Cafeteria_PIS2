@@ -173,12 +173,7 @@ class MenuView {
         const comprarBtn = document.querySelector('.comprar-btn');
         if (comprarBtn) {
             comprarBtn.addEventListener('click', () => {
-<<<<<<< HEAD
-                window.location.href = '../../Compras(Whole-Part)/VIEW/index.html';
-                
-=======
                 window.location.href = "../../Compras(Whole-Part)/VIEW/index.html";
->>>>>>> fac278ffe17a942ed757d8a65f24b35899f82a1b
             });
         }
 
