@@ -26,6 +26,12 @@ class MenuView {
     crearMenus() {
         // Obtener todos los items del inventario
         const inventario = this.controladorInventario.obtenerInventario();
+
+        // Verificar que hay inventario
+        if (!inventario || inventario.length === 0) {
+            console.error('No hay items en el inventario');
+            return;
+        }
         
         // Menú de Alimentos (snacks y bebidas)
         class ImplementadorAlimentos extends Implementador_Menu {

@@ -4,24 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Servicios de Cafetería</title>
+    <link rel="stylesheet" href="../../Menu(Bridge)/VIEW/css/styles.css">
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
-            padding: 20px;
+            padding: 0;
         }
-        h1 {
-            color: #333;
+        .header {
+            background-color: #FFD54F;
+            width: 100%;
+            padding: 20px 0;
             text-align: center;
-            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .header h1 {
+            color: #333;
+            margin: 0;
         }
         .servicios-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             max-width: 90%;
-            margin: 0 auto;
+            margin: 20px auto;
+            padding: 20px;
         }
         .servicio-card {
             background: white;
@@ -126,7 +134,10 @@
     </style>
 </head>
 <body>
-    <h1>Servicios de Cafetería</h1>
+    <div class="header">
+        <h1>Servicios de Cafetería</h1>
+    </div>
+    
     <div class="servicios-grid" id="servicios-container"></div>
 
     <!-- Modal para espacios -->
@@ -137,6 +148,39 @@
             <button class="btn-volver" id="btn-volver-espacios">Volver</button>
         </div>
     </div>
+
+    <!-- Contenedores para los menús -->
+    <div id="appAli"></div>
+    <div id="appPla"></div>
+
+    
+    <script src="../../Inventario(Builder)/SERVICES/Insumo.js"></script>
+    <script src="../../Inventario(Builder)/SERVICES/Inventario.js"></script>
+    <script src="../../Inventario(Builder)/SERVICES/ConstructorInventario.js"></script>
+    <script src="../../Inventario(Builder)/SERVICES/CreaInsumoComida.js"></script>
+    <script src="../../Inventario(Builder)/SERVICES/CreaInsumoBarraFria.js"></script>
+    <script src="../../Inventario(Builder)/MODEL/Gestor_Inventario.js"></script>
+    <script src="../../Inventario(Builder)/CONTROLLER/Controlador_Inventario.js"></script>
+    <script src="../../Menu(Bridge)/MODEL/IMenu_Platillo.js"></script>
+    <script src="../../Menu(Bridge)/MODEL/IMenu_Alimento.js"></script>
+    <script src="../../Menu(Bridge)/MODEL/Implementador_Menu.js"></script>
+    <script src="../../Menu(Bridge)/MODEL/Abstraccion_Menu.js"></script>
+    <script src="../../Menu(Bridge)/MODEL/Menu.js"></script>
+    <script src="../../Menu(Bridge)/SERVICES/MenuInventoryService.js"></script>
+    <script src="../../Menu(Bridge)/CONTROLLER/Controlador_Menu.js"></script>
+    <script src="../../Menu(Bridge)/VIEW/menuView.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuView = new MenuView('alimentos');
+            menuView.render();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuView = new MenuView('platillos');
+            menuView.render();
+        });
+    </script>
 
     <script src="../MODEL/IServicios.js"></script>
     <script src="../MODEL/Servicios.js"></script>

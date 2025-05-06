@@ -42,9 +42,6 @@
             transform-style: preserve-3d;
             position: relative;
         }
-        .servicio-card.flipped {
-            transform: rotateY(180deg);
-        }
         .card-front, .card-back {
             position: absolute;
             width: 100%;
@@ -59,7 +56,7 @@
             border-radius: 10px;
         }
         .card-front {
-            background: linear-gradient(135deg, #f06800, #ff9334);
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
             color: white;
         }
         .card-back {
@@ -131,59 +128,17 @@
             max-height: 80vh;
             overflow-y: auto;
         }
-        .modal-menu-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            width: 80%;
-            max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
-        }
-
-        .menu-container {
-            margin: 20px 0;
-        }
-
         .menu-item {
             padding: 10px;
             margin: 5px 0;
             background-color: #f9f9f9;
-            border-radius: 5px;
-            border-left: 4px solid #6e8efb;
+            border-radius: 4px;
         }
-
-        .comprar-btn {
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        .platillo {
+            border-left: 4px solid #4CAF50;
         }
-
-        /* Agregar estos estilos */
-        .btn-volver {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #6e8efb;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s;
-        }
-
-        .btn-volver:hover {
-            background-color: #5a7de3;
-        }
-
-        /* Asegurar que el contenido del modal no cierre al hacer clic en él */
-        .modal-menu-content {
-            pointer-events: auto;
+        .alimento {
+            border-left: 4px solid #2196F3;
         }
     </style>
 </head>
@@ -202,29 +157,18 @@
             <button class="btn-volver" id="btn-volver-espacios">Volver</button>
         </div>
     </div>
-    
-    <!-- Modal para barra fría (alimentos) -->
-    <div class="modal" id="modal-barra-fria">
-        <div class="modal-menu-content">
-            <h2>Menú de Barra Fría</h2>
-            <div id="barra-fria-content"></div>
-            <button class="btn-volver">Volver a Servicios</button>
-        </div>
-    </div>
-    
-    <!-- Modal para comida (platillos) -->
-    <div class="modal" id="modal-comida">
-        <div class="modal-menu-content">
-            <h2>Menú de Comidas</h2>
-            <div id="comida-content"></div>
-            <button class="btn-volver">Volver a Servicios</button>
-        </div>
-    </div>
 
-    <!-- Contenedores para los menús 
+    <!-- Contenedores para los menús -->
+    <!--
+    <div id="menu-platillos" style="display: none;"></div>
+    <div id="menu-alimentos" style="display: none;"></div>
+    -->
+    
     <div id="appAli"></div>
-    <div id="appPla"></div>-->
+    <div id="appPla"></div>
+    
 
+    <!-- Scripts del módulo de Menú -->
     
     <script src="../../Inventario(Builder)/SERVICES/Insumo.js"></script>
     <script src="../../Inventario(Builder)/SERVICES/Inventario.js"></script>
@@ -241,7 +185,6 @@
     <script src="../../Menu(Bridge)/SERVICES/MenuInventoryService.js"></script>
     <script src="../../Menu(Bridge)/CONTROLLER/Controlador_Menu.js"></script>
     <script src="../../Menu(Bridge)/VIEW/menuView.js"></script>
-    <!--
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const menuView = new MenuView('alimentos');
@@ -253,8 +196,9 @@
             const menuView = new MenuView('platillos');
             menuView.render();
         });
-    </script>-->
+    </script>
 
+    <!-- Scripts del módulo de Servicios -->
     <script src="../MODEL/IServicios.js"></script>
     <script src="../MODEL/Servicios.js"></script>
     <script src="../MODEL/DecoradorServicios.js"></script>
@@ -263,6 +207,6 @@
     <script src="../MODEL/Decorador_Comida.js"></script>
     <script src="../MODEL/Decorador_Promocion.js"></script>
     <script src="../CONTROLLER/Controlador_Servicios.js"></script>
-    <script src="servicioView.js"></script>
+    <script src="servicioView_2.js"></script>
 </body>
 </html>
