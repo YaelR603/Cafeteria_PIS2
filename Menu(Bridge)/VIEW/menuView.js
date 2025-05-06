@@ -127,13 +127,13 @@ class MenuView {
         const menu = this.menus.alimentos;
         return `
             <div class="menu-container">
-                <h1>Menú de Alimentos</h1>
+                <!--<h1>Menú de Alimentos</h1>-->
                 ${menu.items.map(item => `
                     <div class="menu-item ${item.tipo}">
                         ${item.nombre} ($${item.precio})
                     </div>
                 `).join('')}
-                <button class="comprar-btn">Comprar</button>
+                <button class="comprar-btn" data-menu-type="alimentos">Comprar</button>
             </div>
         `;
     }
@@ -142,13 +142,13 @@ class MenuView {
         const menu = this.menus.platillos;
         return `
             <div class="menu-container">
-                <h1>Menú de Platillos</h1>
+                <!--<h1>Menú de Platillos</h1>-->
                 ${menu.items.map(item => `
                     <div class="menu-item ${item.tipo}">
                         ${item.nombre} ($${item.precio})
                     </div>
                 `).join('')}
-                <button class="comprar-btn">Comprar</button>
+                <button class="comprar-btn" data-menu-type="platillos">Comprar</button>
             </div>
         `;
     }
@@ -173,7 +173,7 @@ class MenuView {
         const comprarBtn = document.querySelector('.comprar-btn');
         if (comprarBtn) {
             comprarBtn.addEventListener('click', () => {
-                window.location.href = 'compra.html';
+                window.location.href = "../../Compras(Whole-Part)/VIEW/index.html";
             });
         }
 

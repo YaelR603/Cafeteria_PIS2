@@ -18,7 +18,7 @@ class ServiciosView {
             {
                 id: 'barra-fria',
                 title: 'Barra Fría',
-                icon: '🍹',
+                icon: '🥪',
                 backContent: '<p>Haz clic en el título para ver el menú de la barra fría</p>',
                 showModal: 'barra-fria'
             },
@@ -199,7 +199,7 @@ class ServiciosView {
         comidaModal.id = 'modal-comida';
         comidaModal.innerHTML = `
             <div class="modal-menu-content">
-                <h2>Menú de Comidas</h2>
+                <h2>Menú de Comida</h2>
                 <div id="comida-content"></div>
                 <button class="btn-volver">Volver a Servicios</button>
             </div>
@@ -244,6 +244,7 @@ class ServiciosView {
             });
         });
     }
+
 
     mostrarServicios() {
         this.setupModals();
