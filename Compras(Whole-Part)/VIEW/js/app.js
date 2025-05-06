@@ -1,16 +1,22 @@
-const carrito = [];
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 const carritoContainer = document.querySelector('.cart-items');
 const totalContainer = document.getElementById('cart-total-amount');
+
+function calcularTotal() {
+    return carrito.reduce((total, item) => total + parseFloat(item.precio), 0);
+}
 
 document.addEventListener('productoSeleccionado', (e) => {
     const producto = e.detail;
     carrito.push(producto);
+    localStorage.setItem('carrito', JSON.stringify(carrito));
+    localStorage.setItem('totalCarrito', calcularTotal());
     renderizarCarrito();
 });
 
 function renderizarCarrito() {
     carritoContainer.innerHTML = '';
-    let total = 0;
+    const total = calcularTotal();
 
     carrito.forEach((item, index) => {
         const itemDiv = document.createElement('div');
@@ -23,7 +29,7 @@ function renderizarCarrito() {
         total += parseFloat(item.precio);
     });
 
-    totalContainer.textContent = `$${total}`;
+    totalContainer.textContent = `$${total.toFixed(2)}`;
 }
 
 // Quitar productos del carrito
@@ -31,20 +37,18 @@ carritoContainer.addEventListener('click', (e) => {
     if (e.target.classList.contains('remove-btn')) {
         const index = e.target.dataset.index;
         carrito.splice(index, 1);
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        localStorage.setItem('totalCarrito', calcularTotal());
         renderizarCarrito();
     }
 });
-function finalizarCompra() {
+
+document.getElementById('finalizar-compra-btn').addEventListener('click', () => {
     if (carrito.length === 0) {
-        alert('El carrito está vacío. Agregue productos antes de comprar.');
+        alert('El carrito está vacío');
         return;
     }
-    
-    // Guardar carrito en localStorage
-    localStorage.setItem('carrito', JSON.stringify(carrito));
- // Redirigir a la página de pagos
- window.location.href = '/Pagos(Adapter)/VIEW/pagos.html';
-}
-
-// Asignar evento al botón de comprar (esto puede ir en el HTML también)
-document.getElementById('finalizar-compra-btn').addEventListener('click', finalizarCompra);
+    // Guardar el total antes de redirigir
+    localStorage.setItem('totalCarrito', calcularTotal());
+    window.location.href = 'pagos.js';
+});

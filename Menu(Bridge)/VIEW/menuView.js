@@ -26,6 +26,12 @@ class MenuView {
     crearMenus() {
         // Obtener todos los items del inventario
         const inventario = this.controladorInventario.obtenerInventario();
+
+        // Verificar que hay inventario
+        if (!inventario || inventario.length === 0) {
+            console.error('No hay items en el inventario');
+            return;
+        }
         
         // Menú de Alimentos (snacks y bebidas)
         class ImplementadorAlimentos extends Implementador_Menu {
@@ -121,13 +127,13 @@ class MenuView {
         const menu = this.menus.alimentos;
         return `
             <div class="menu-container">
-                <h1>Menú de Alimentos</h1>
+                <!--<h1>Menú de Alimentos</h1>-->
                 ${menu.items.map(item => `
                     <div class="menu-item ${item.tipo}">
                         ${item.nombre} ($${item.precio})
                     </div>
                 `).join('')}
-                <button class="comprar-btn">Comprar</button>
+                <button class="comprar-btn" data-menu-type="alimentos">Comprar</button>
             </div>
         `;
     }
@@ -136,13 +142,13 @@ class MenuView {
         const menu = this.menus.platillos;
         return `
             <div class="menu-container">
-                <h1>Menú de Platillos</h1>
+                <!--<h1>Menú de Platillos</h1>-->
                 ${menu.items.map(item => `
                     <div class="menu-item ${item.tipo}">
                         ${item.nombre} ($${item.precio})
                     </div>
                 `).join('')}
-                <button class="comprar-btn">Comprar</button>
+                <button class="comprar-btn" data-menu-type="platillos">Comprar</button>
             </div>
         `;
     }
@@ -167,8 +173,12 @@ class MenuView {
         const comprarBtn = document.querySelector('.comprar-btn');
         if (comprarBtn) {
             comprarBtn.addEventListener('click', () => {
+<<<<<<< HEAD
                 window.location.href = '../../Compras(Whole-Part)/VIEW/index.html';
                 
+=======
+                window.location.href = "../../Compras(Whole-Part)/VIEW/index.html";
+>>>>>>> fac278ffe17a942ed757d8a65f24b35899f82a1b
             });
         }
 

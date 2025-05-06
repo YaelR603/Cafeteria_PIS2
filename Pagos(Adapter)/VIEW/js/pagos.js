@@ -1,39 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Obtener datos del carrito desde localStorage
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    
-    // Calcular total
-    const totalAmount = carrito.reduce((total, item) => total + parseFloat(item.precio), 0);
-    
-    // Elementos del DOM
-    const cartItemsContainer = document.querySelector('.cart-items');
-    const totalAmountElement = document.querySelector('.total-amount');
-    // ... resto del código existente ...
-    
-    // Cargar ítems del carrito (modificar esta función)
-    function loadCartItems() {
-        cartItemsContainer.innerHTML = '';
-        carrito.forEach(item => {
-            const itemElement = document.createElement('div');
-            itemElement.className = 'cart-item';
-            itemElement.innerHTML = `
-                <span>${item.nombre}</span>
-                <span>$${parseFloat(item.precio).toFixed(2)}</span>
-            `;
-            cartItemsContainer.appendChild(itemElement);
-        });
-        
-        totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
-    }
-    
-    // ... resto del código existente ...
-    
-    // Al final, cargar los ítems
-    loadCartItems();
-    generateQRCode();
-});
-    
-    const totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+    const totalAmount = parseFloat(localStorage.getItem('totalCarrito')) || 0;
     
     // Elementos del DOM
     const cartItemsContainer = document.querySelector('.cart-items');
@@ -52,12 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar ítems del carrito
     function loadCartItems() {
         cartItemsContainer.innerHTML = '';
-        cartItems.forEach(item => {
+        carrito.forEach(item => {
             const itemElement = document.createElement('div');
             itemElement.className = 'cart-item';
             itemElement.innerHTML = `
-                <span>${item.name} x${item.quantity}</span>
-                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                <span>${item.nombre}</span>
+                <span>$${parseFloat(item.precio).toFixed(2)}</span>
             `;
             cartItemsContainer.appendChild(itemElement);
         });
@@ -70,15 +38,12 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', () => {
             const method = button.dataset.method;
             
-            // Actualizar botones activos
             tabButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
             
-            // Actualizar contenido visible
             tabContents.forEach(content => content.classList.remove('active'));
             document.getElementById(method).classList.add('active');
             
-            // Generar nuevo QR si es el método seleccionado
             if (method === 'efectivo_qr') {
                 generateQRCode();
             }
@@ -90,16 +55,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const randomCode = `COMEDOR-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
         qrImage.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${randomCode}`;
         qrStatusText.textContent = 'Esperando pago...';
+        qrStatusText.style.color = 'inherit';
         
-        // Simular verificación de pago QR
         simulateQRPayment(randomCode);
     }
     
     // Simular pago con QR
     function simulateQRPayment(qrCode) {
-        // Simular tiempo de espera para el pago
         setTimeout(() => {
-            // 80% de probabilidad de éxito (como en el backend)
             if (Math.random() < 0.8) {
                 qrStatusText.textContent = 'Pago confirmado!';
                 qrStatusText.style.color = 'var(--success-color)';
@@ -116,7 +79,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let paymentConfig = {};
         let isValid = true;
         
-        // Validar datos según el método de pago
         switch (activeMethod) {
             case 'tarjeta':
                 const cardNumber = document.getElementById('card-number').value;
@@ -159,16 +121,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (!isValid) return;
         
-        // Mostrar carga
         payButton.disabled = true;
         payButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Procesando...';
         
         try {
-            // Simular llamada al backend (en un caso real sería una llamada fetch)
             const paymentResult = await simulateBackendPayment(totalAmount, activeMethod, paymentConfig);
             
             if (paymentResult.exito) {
-                // Mostrar comprobante
                 showReceipt(paymentResult);
             } else {
                 alert(`Error en el pago: ${paymentResult.error}`);
@@ -176,7 +135,6 @@ document.addEventListener('DOMContentLoaded', function() {
         } catch (error) {
             alert(`Error: ${error.message}`);
         } finally {
-            // Restaurar botón
             payButton.disabled = false;
             payButton.textContent = 'Realizar Pago';
         }
@@ -184,16 +142,13 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Simular llamada al backend
     async function simulateBackendPayment(monto, tipoMetodo, configMetodo) {
-        // Simular tiempo de procesamiento según el método
-        let processingTime = 1000; // 1 segundo por defecto
-        
+        let processingTime = 1000;
         if (tipoMetodo === 'tarjeta') processingTime = 1500;
         if (tipoMetodo === 'paypal') processingTime = 1200;
         if (tipoMetodo === 'efectivo_qr') processingTime = 800;
         
         await new Promise(resolve => setTimeout(resolve, processingTime));
         
-        // Simular fallos aleatorios según las probabilidades del backend
         let exito = true;
         let error = null;
         
@@ -219,7 +174,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         if (exito) {
-            // Generar datos de comprobante
             const now = new Date();
             return {
                 exito: true,
@@ -257,12 +211,50 @@ document.addEventListener('DOMContentLoaded', function() {
     function showReceipt(paymentResult) {
         const { datos } = paymentResult;
         const { comprobante, metodo } = datos;
-        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-        const totalAmount = carrito.reduce((total, item) => total + parseFloat(item.precio), 0);
         
         receiptContent.innerHTML = `
             <div class="receipt">
-                <!-- ... encabezado y detalles existentes ... -->
+                <div class="receipt-header">
+                    <h4>Comedor Universitario</h4>
+                    <p>Comprobante de Pago</p>
+                </div>
+                
+                <div class="receipt-details">
+                    <div class="receipt-detail">
+                        <span>Código:</span>
+                        <span>${comprobante.codigo}</span>
+                    </div>
+                    <div class="receipt-detail">
+                        <span>Fecha:</span>
+                        <span>${comprobante.fecha.toLocaleString()}</span>
+                    </div>
+                    <div class="receipt-detail">
+                        <span>Método:</span>
+                        <span>${getPaymentMethodName(metodo.tipo)}</span>
+                    </div>
+                    ${metodo.tipo === 'tarjeta' ? `
+                    <div class="receipt-detail">
+                        <span>Tarjeta:</span>
+                        <span>**** **** **** ${metodo.ultimosDigitos}</span>
+                    </div>
+                    <div class="receipt-detail">
+                        <span>Titular:</span>
+                        <span>${metodo.titular}</span>
+                    </div>
+                    ` : ''}
+                    ${metodo.tipo === 'paypal' ? `
+                    <div class="receipt-detail">
+                        <span>PayPal:</span>
+                        <span>${metodo.email}</span>
+                    </div>
+                    ` : ''}
+                    ${metodo.tipo === 'efectivo_qr' ? `
+                    <div class="receipt-detail">
+                        <span>Código QR:</span>
+                        <span>${metodo.codigoQR.split('data=')[1].substring(0, 15)}...</span>
+                    </div>
+                    ` : ''}
+                </div>
                 
                 <div class="receipt-items">
                     <h5>Detalle de Compra</h5>
@@ -279,44 +271,42 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span>$${totalAmount.toFixed(2)}</span>
                 </div>
                 
-                <!-- ... pie de página existente ... -->
+                <div class="receipt-footer">
+                    <p>¡Gracias por su compra!</p>
+                    <p>Presente este comprobante para retirar su pedido</p>
+                </div>
             </div>
         `;
         
         receiptModal.classList.add('active');
     }
     
-    // Imprimir comprobante
+    function getPaymentMethodName(method) {
+        switch (method) {
+            case 'tarjeta': return 'Tarjeta de Crédito/Débito';
+            case 'efectivo_qr': return 'Pago QR';
+            case 'paypal': return 'PayPal';
+            default: return method;
+        }
+    }
+    
+    closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            receiptModal.classList.remove('active');
+        });
+    });
+    
     printReceiptButton.addEventListener('click', () => {
         window.print();
     });
     
-    // Cancelar compra
     cancelButton.addEventListener('click', () => {
         if (confirm('¿Está seguro que desea cancelar la compra?')) {
-            // Redirigir o limpiar el formulario
-            window.location.href = 'menu.html'; // Asumiendo que hay una página de menú
+            window.location.href = 'menu.html';
         }
     });
     
-    // Cargar datos iniciales
+    // Inicialización
     loadCartItems();
     generateQRCode();
-
-document.addEventListener('DOMContentLoaded', () => {
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const cartItemsContainer = document.querySelector('.cart-items');
-    const totalAmount = document.querySelector('.total-amount');
-
-    let total = 0;
-
-    carrito.forEach(producto => {
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('cart-item');
-        itemDiv.textContent = `${producto.nombre} - $${producto.precio}`;
-        cartItemsContainer.appendChild(itemDiv);
-        total += parseFloat(producto.precio);
-    });
-
-    totalAmount.textContent = `$${total.toFixed(2)}`;
 });

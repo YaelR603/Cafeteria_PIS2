@@ -42,9 +42,6 @@
             transform-style: preserve-3d;
             position: relative;
         }
-        .servicio-card.flipped {
-            transform: rotateY(180deg);
-        }
         .card-front, .card-back {
             position: absolute;
             width: 100%;
@@ -131,6 +128,18 @@
             max-height: 80vh;
             overflow-y: auto;
         }
+        .menu-item {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+        }
+        .platillo {
+            border-left: 4px solid #4CAF50;
+        }
+        .alimento {
+            border-left: 4px solid #2196F3;
+        }
     </style>
 </head>
 <body>
@@ -150,9 +159,16 @@
     </div>
 
     <!-- Contenedores para los menús -->
+    <!--
+    <div id="menu-platillos" style="display: none;"></div>
+    <div id="menu-alimentos" style="display: none;"></div>
+    -->
+    
     <div id="appAli"></div>
     <div id="appPla"></div>
+    
 
+    <!-- Scripts del módulo de Menú -->
     
     <script src="../../Inventario(Builder)/SERVICES/Insumo.js"></script>
     <script src="../../Inventario(Builder)/SERVICES/Inventario.js"></script>
@@ -182,6 +198,7 @@
         });
     </script>
 
+    <!-- Scripts del módulo de Servicios -->
     <script src="../MODEL/IServicios.js"></script>
     <script src="../MODEL/Servicios.js"></script>
     <script src="../MODEL/DecoradorServicios.js"></script>
