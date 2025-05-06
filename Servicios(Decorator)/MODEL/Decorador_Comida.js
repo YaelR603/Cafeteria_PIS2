@@ -1,4 +1,4 @@
-const DecoradorServicios = require('./DecoradorServicios');
+//const DecoradorServicios = require('./DecoradorServicios');
 
 class Decorador_Comida extends DecoradorServicios {
     constructor(servicioDecorado, menuComida) {
@@ -19,4 +19,4 @@ class Decorador_Comida extends DecoradorServicios {
     }
 }
 
-module.exports = Decorador_Comida;
+//module.exports = Decorador_Comida;

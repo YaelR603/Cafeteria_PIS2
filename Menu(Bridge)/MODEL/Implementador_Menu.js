@@ -4,4 +4,4 @@ class Implementador_Menu {
     }
 }
 
-module.exports = Implementador_Menu;
+//module.exports = Implementador_Menu;

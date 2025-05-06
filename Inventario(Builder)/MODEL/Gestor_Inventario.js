@@ -1,6 +1,6 @@
-const ConstructorInventario = require('../SERVICES/ConstructorInventario');
-const CreaInsumoComida = require('../SERVICES/CreaInsumoComida');
-const CreaInsumoBarraFria = require('../SERVICES/CreaInsumoBarraFria');
+//const ConstructorInventario = require('../SERVICES/ConstructorInventario');
+//const CreaInsumoComida = require('../SERVICES/CreaInsumoComida');
+//const CreaInsumoBarraFria = require('../SERVICES/CreaInsumoBarraFria');
 
 class GestorInventario {
     constructor() {
@@ -40,4 +40,4 @@ class GestorInventario {
     }
 }
 
-module.exports = GestorInventario;
+//module.exports = GestorInventario;

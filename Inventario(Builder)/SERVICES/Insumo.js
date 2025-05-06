@@ -11,4 +11,4 @@ class Insumo {
     }
 }
 
-module.exports = Insumo;
+//module.exports = Insumo;

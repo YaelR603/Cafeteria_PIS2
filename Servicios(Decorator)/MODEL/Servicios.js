@@ -1,4 +1,4 @@
-const IServicios = require('./IServicios');
+//const IServicios = require('./IServicios');
 
 // Implementación concreta del servicio base
 class Servicios extends IServicios {
@@ -16,4 +16,4 @@ class Servicios extends IServicios {
     }
 }
 
-module.exports = Servicios;
+//module.exports = Servicios;

@@ -1,4 +1,4 @@
-const Insumo = require('./Insumo');
+//const Insumo = require('./Insumo');
 
 class CreaInsumoBarraFria {
     constructor() {
@@ -24,4 +24,4 @@ class CreaInsumoBarraFria {
     }
 }
 
-module.exports = CreaInsumoBarraFria;
+//module.exports = CreaInsumoBarraFria;

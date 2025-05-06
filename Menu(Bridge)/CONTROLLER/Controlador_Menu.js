@@ -1,5 +1,5 @@
-const Menu = require('../MODEL/Menu');
-const MenuInventoryService = require('../SERVICES/MenuInventoryService');
+//const Menu = require('../MODEL/Menu');
+//const MenuInventoryService = require('../SERVICES/MenuInventoryService');
 
 class Controlador_Menu {
     constructor(controladorInventario) {
@@ -19,4 +19,4 @@ class Controlador_Menu {
     }
 }
 
-module.exports = Controlador_Menu;
+//module.exports = Controlador_Menu;

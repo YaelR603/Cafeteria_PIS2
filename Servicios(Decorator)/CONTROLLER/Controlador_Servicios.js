@@ -1,8 +1,8 @@
-const Servicios = require('../MODEL/Servicios');
-const Decorador_Espacio = require('../MODEL/Decorador_Espacio');
-const Decorador_BarraFria = require('../MODEL/Decorador_BarraFria');
-const Decorador_Comida = require('../MODEL/Decorador_Comida');
-const Decorador_Promocion = require('../MODEL/Decorador_Promocion');
+//const Servicios = require('../MODEL/Servicios');
+//const Decorador_Espacio = require('../MODEL/Decorador_Espacio');
+//const Decorador_BarraFria = require('../MODEL/Decorador_BarraFria');
+//const Decorador_Comida = require('../MODEL/Decorador_Comida');
+//const Decorador_Promocion = require('../MODEL/Decorador_Promocion');
 
 class Controlador_Servicios {
     constructor() {
@@ -30,4 +30,4 @@ class Controlador_Servicios {
     }
 }
 
-module.exports = Controlador_Servicios;
+//module.exports = Controlador_Servicios;

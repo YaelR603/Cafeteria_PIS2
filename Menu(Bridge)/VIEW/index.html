@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menú de Productos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div id="appPro"></div>
+    <div id="appAli"></div>
+    <div id="appPla"></div>
+    
+
+    <script src="../../Inventario(Builder)/SERVICES/Insumo.js"></script>
+    <script src="../../Inventario(Builder)/SERVICES/Inventario.js"></script>
+    <script src="../../Inventario(Builder)/SERVICES/ConstructorInventario.js"></script>
+    <script src="../../Inventario(Builder)/SERVICES/CreaInsumoComida.js"></script>
+    <script src="../../Inventario(Builder)/SERVICES/CreaInsumoBarraFria.js"></script>
+
+    <script src="../../Inventario(Builder)/MODEL/Gestor_Inventario.js"></script>
+    <script src="../../Inventario(Builder)/CONTROLLER/Controlador_Inventario.js"></script>
+
+    <script src="../MODEL/IMenu_Platillo.js"></script>
+    <script src="../MODEL/IMenu_Alimento.js"></script>
+    <script src="../MODEL/Implementador_Menu.js"></script>
+    <script src="../MODEL/Abstraccion_Menu.js"></script>
+
+    <script src="../MODEL/Menu.js"></script>
+    <script src="../SERVICES/MenuInventoryService.js"></script>
+
+    <script src="../CONTROLLER/Controlador_Menu.js"></script>
+
+    <script src="menuView.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuView = new MenuView('productos');
+            menuView.render();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuView = new MenuView('alimentos');
+            menuView.render();
+        });
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuView = new MenuView('platillos');
+            menuView.render();
+        });
+    </script>
+    
+</body>
+</html>

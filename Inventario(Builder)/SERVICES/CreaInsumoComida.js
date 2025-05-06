@@ -1,4 +1,4 @@
-const Insumo = require('./Insumo');
+//const Insumo = require('./Insumo');
 
 class CreaInsumoComida {
     constructor() {
@@ -24,4 +24,4 @@ class CreaInsumoComida {
     }
 }
 
-module.exports = CreaInsumoComida;
+//module.exports = CreaInsumoComida;

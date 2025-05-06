@@ -1,4 +1,4 @@
-const IServicios = require('./IServicios');
+//const IServicios = require('./IServicios');
 
 // Clase base para todos los decoradores
 class DecoradorServicios extends IServicios {
@@ -16,4 +16,4 @@ class DecoradorServicios extends IServicios {
     }
 }
 
-module.exports = DecoradorServicios;
+//module.exports = DecoradorServicios;

@@ -14,4 +14,4 @@ class IMenu_Platillo {
     }
 }
 
-module.exports = IMenu_Platillo;
+//module.exports = IMenu_Platillo;

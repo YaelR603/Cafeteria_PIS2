@@ -1,4 +1,4 @@
-const DecoradorServicios = require('./DecoradorServicios');
+//const DecoradorServicios = require('./DecoradorServicios');
 
 class Decorador_Promocion extends DecoradorServicios {
     constructor(servicioDecorado, descripcionPromo, descuento) {
@@ -16,4 +16,4 @@ class Decorador_Promocion extends DecoradorServicios {
     }
 }
 
-module.exports = Decorador_Promocion;
+//module.exports = Decorador_Promocion;

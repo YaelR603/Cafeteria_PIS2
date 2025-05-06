@@ -16,4 +16,4 @@ class Inventario {
     }
 }
 
-module.exports = Inventario;
+//module.exports = Inventario;

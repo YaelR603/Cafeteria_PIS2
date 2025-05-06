@@ -1,6 +1,6 @@
 class ConstructorInventario {
     constructor() {
-        this.inventario = new (require('./Inventario'))();
+        this.inventario = new Inventario();
     }
 
     construir() {
@@ -8,4 +8,4 @@ class ConstructorInventario {
     }
 }
 
-module.exports = ConstructorInventario;
+//module.exports = ConstructorInventario;
