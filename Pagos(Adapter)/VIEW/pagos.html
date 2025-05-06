@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Pagos - Comedor Universitario</title>
+    <link rel="stylesheet" href="css/pagos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-utensils"></i> Comedor Universitario</h1>
+            <h2>Sistema de Pagos</h2>
+        </header>
+
+        <div class="payment-process">
+            <div class="cart-summary">
+                <h3>Resumen de Compra</h3>
+                <div class="cart-items">
+                    <!-- Los ítems se cargarán dinámicamente -->
+                </div>
+                <div class="cart-total">
+                    <span>Total a pagar:</span>
+                    <span class="total-amount">$0.00</span>
+                </div>
+            </div>
+
+            <div class="payment-methods">
+                <h3>Método de Pago</h3>
+                <div class="tabs">
+                    <button class="tab-btn active" data-method="tarjeta">
+                        <i class="fas fa-credit-card"></i> Tarjeta
+                    </button>
+                    <button class="tab-btn" data-method="efectivo_qr">
+                        <i class="fas fa-qrcode"></i> QR
+                    </button>
+                    <button class="tab-btn" data-method="paypal">
+                        <i class="fab fa-paypal"></i> PayPal
+                    </button>
+                </div>
+
+                <div class="tab-content active" id="tarjeta">
+                    <form id="card-form">
+                        <div class="form-group">
+                            <label for="card-number">Número de Tarjeta</label>
+                            <input type="text" id="card-number" placeholder="1234 5678 9012 3456" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="card-name">Nombre del Titular</label>
+                            <input type="text" id="card-name" placeholder="Como aparece en la tarjeta" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="card-expiry">Fecha de Vencimiento</label>
+                                <input type="text" id="card-expiry" placeholder="MM/AA" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="card-cvv">CVV</label>
+                                <input type="text" id="card-cvv" placeholder="123" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="tab-content" id="efectivo_qr">
+                    <div class="qr-instructions">
+                        <p>Escanea el siguiente código QR para realizar el pago:</p>
+                        <div class="qr-code-placeholder">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=COMEDOR-UNI-${Date.now()}" alt="Código QR de pago" id="qr-image">
+                        </div>
+                        <p class="qr-status">Estado: <span id="qr-status-text">Esperando pago...</span></p>
+                    </div>
+                </div>
+
+                <div class="tab-content" id="paypal">
+                    <div class="paypal-container">
+                        <p>Serás redirigido a PayPal para completar el pago</p>
+                        <div class="form-group">
+                            <label for="paypal-email">Correo de PayPal</label>
+                            <input type="email" id="paypal-email" placeholder="tucorreo@example.com" required>
+                        </div>
+                        <button id="paypal-btn" class="paypal-button">
+                            <i class="fab fa-paypal"></i> Pagar con PayPal
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-actions">
+            <button id="cancel-btn" class="btn secondary">Cancelar</button>
+            <button id="pay-btn" class="btn primary">Realizar Pago</button>
+        </div>
+    </div>
+
+    <!-- Modal de Comprobante -->
+    <div class="modal" id="receipt-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Comprobante de Pago</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="receipt-content">
+                <!-- Contenido del comprobante se cargará aquí -->
+            </div>
+            <div class="modal-footer">
+                <button id="print-receipt" class="btn primary">
+                    <i class="fas fa-print"></i> Imprimir
+                </button>
+                <button id="close-receipt" class="btn secondary">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/pagos.js"></script>
+</body>
+</html>
