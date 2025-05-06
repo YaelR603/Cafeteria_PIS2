@@ -46,19 +46,16 @@
         <div id="messageContainer" class="message-container"></div>
     </div>
     
-    <script src="../../Pagos(Adapter)/CONTROLLER/Controlador_Pagos.js"></script>
-    <script src="../../Pagos(Adapter)/MODEL/ComprobantePago.js"></script>
-    <script src="../../Pagos(Adapter)/MODEL/EfectivoAdaptador.js"></script>
-    <script src="../../Pagos(Adapter)/MODEL/EfectivoQR.js"></script>
+    <script src="../../Servicios(Decorator)/MODEL/Servicios.js"></script>
 
-    <script src="../../Pagos(Adapter)/MODEL/MetodoPago.js"></script>
-    <script src="../../Pagos(Adapter)/MODEL/Gestor_Pago.js"></script>
+    <script src="../../Servicios(Decorator)/MODEL/IServicios.js"></script>
+    <script src="../../Servicios(Decorator)/MODEL/DecoradorServicios.js"></script>
 
-    <script src="../../Pagos(Adapter)/MODEL/Pago.js"></script>
-    <script src="../../Pagos(Adapter)/MODEL/Paypal.js"></script>
+    <script src="../../Servicios(Decorator)/MODEL/Decorador_Promocion.js"></script>
+    <script src="../../Servicios(Decorator)/MODEL/Decorador_Espacio.js"></script>
 
-    <script src="../../Pagos(Adapter)/MODEL/PaypalAdaptador.js"></script>
-    <script src="../../Pagos(Adapter)/MODEL/Tarjeta.js"></script>
+    <script src="../../Servicios(Decorator)/MODEL/Decorador_BarraFria.js"></script>
+    <script src="../../Servicios(Decorator)/CONTROLLER/Controlador_Servicios.js"></script>
 
     <script src="auth.js" type="module"></script>
 
@@ -69,10 +66,8 @@
         const email = document.getElementById('email').value;
         const password = document.getElementById('password').value;
       
-        // Simulación de validación (puedes reemplazarlo por tu lógica real)
         if (email === 'giomendoz20@gmail.com' && password === '080124') {
-          // Redirección a otra ventana (por ejemplo, módulo de compras)
-          window.location.href = 'pagos.html';
+          window.location.href = 'index.html';
         } else {
           document.getElementById('messageContainer').textContent = 'Credenciales incorrectas';
         }

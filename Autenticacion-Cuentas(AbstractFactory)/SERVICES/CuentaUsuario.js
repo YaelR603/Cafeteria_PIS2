@@ -1,23 +1,28 @@
-const Cuenta = require('./Cuenta');
-const usuarios = require('./usuarioDB');
-
-class CuentaUsuario extends Cuenta {
-  constructor(nombre, email, password) {
-    super('usuario', nombre, email, password);
-    this.preferencias = {};
+// model/CuentaUsuario.js
+class CuentaUsuario {
+  constructor(id, nombre, email, password, tipo = 'usuario') {
+      this.id = id;
+      this.nombre = nombre;
+      this.email = email;
+      this.password = password;
+      this.tipo = tipo;
   }
 
-  async autenticar() {
-    const usuario = usuarios.find(u => u.email === this.email && u.password === this.password && u.tipo === 'usuario');
-    return usuario !== undefined;
+  // Base de datos local de usuarios
+  static usuarios = [
+      new CuentaUsuario(1, 'Admin', 'admin@example.com', 'admin123', 'administrador'),
+      new CuentaUsuario(2, 'Usuario Normal', 'usuario@example.com', 'user123'),
+      new CuentaUsuario(3, 'Gio Mendoza', 'giomendoz20@gmail.com', '080124')
+  ];
+
+  autenticar() {
+      return CuentaUsuario.usuarios.some(
+          user => user.email === this.email && user.password === this.password
+      );
   }
 
   static obtenerPorEmail(email) {
-    return usuarios.find(u => u.email === email);
-  }
-
-  static obtenerTodos() {
-    return usuarios;
+      return CuentaUsuario.usuarios.find(user => user.email === email);
   }
 }
 
