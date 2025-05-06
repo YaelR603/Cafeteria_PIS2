@@ -1,16 +1,5 @@
 const Cuenta = require('./Cuenta');
-const mongoose = require('mongoose');
-
-const usuarioSchema = new mongoose.Schema({
-  tipo: { type: String, default: 'usuario' },
-  nombre: { type: String, required: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  fechaCreacion: { type: Date, default: Date.now },
-  preferencias: { type: Object, default: {} }
-});
-
-const UsuarioModel = mongoose.model('Usuario', usuarioSchema);
+const usuarios = require('./usuarioDB');
 
 class CuentaUsuario extends Cuenta {
   constructor(nombre, email, password) {
@@ -19,21 +8,16 @@ class CuentaUsuario extends Cuenta {
   }
 
   async autenticar() {
-    const usuario = await UsuarioModel.findOne({ email: this.email, password: this.password });
-    return usuario !== null;
+    const usuario = usuarios.find(u => u.email === this.email && u.password === this.password && u.tipo === 'usuario');
+    return usuario !== undefined;
   }
 
-  async guardarEnBD() {
-    const nuevoUsuario = new UsuarioModel({
-      nombre: this.nombre,
-      email: this.email,
-      password: this.password
-    });
-    return await nuevoUsuario.save();
+  static obtenerPorEmail(email) {
+    return usuarios.find(u => u.email === email);
   }
 
-  setPreferencias(preferencias) {
-    this.preferencias = preferencias;
+  static obtenerTodos() {
+    return usuarios;
   }
 }
 

@@ -1,10 +1,37 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Simular datos de compra
-    const cartItems = [
-        { name: 'Menú del día', price: 5.50, quantity: 1 },
-        { name: 'Bebida', price: 1.50, quantity: 1 },
-        { name: 'Postre', price: 2.00, quantity: 1 }
-    ];
+    // Obtener datos del carrito desde localStorage
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    
+    // Calcular total
+    const totalAmount = carrito.reduce((total, item) => total + parseFloat(item.precio), 0);
+    
+    // Elementos del DOM
+    const cartItemsContainer = document.querySelector('.cart-items');
+    const totalAmountElement = document.querySelector('.total-amount');
+    // ... resto del código existente ...
+    
+    // Cargar ítems del carrito (modificar esta función)
+    function loadCartItems() {
+        cartItemsContainer.innerHTML = '';
+        carrito.forEach(item => {
+            const itemElement = document.createElement('div');
+            itemElement.className = 'cart-item';
+            itemElement.innerHTML = `
+                <span>${item.nombre}</span>
+                <span>$${parseFloat(item.precio).toFixed(2)}</span>
+            `;
+            cartItemsContainer.appendChild(itemElement);
+        });
+        
+        totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
+    }
+    
+    // ... resto del código existente ...
+    
+    // Al final, cargar los ítems
+    loadCartItems();
+    generateQRCode();
+});
     
     const totalAmount = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
     
@@ -230,57 +257,19 @@ document.addEventListener('DOMContentLoaded', function() {
     function showReceipt(paymentResult) {
         const { datos } = paymentResult;
         const { comprobante, metodo } = datos;
+        const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+        const totalAmount = carrito.reduce((total, item) => total + parseFloat(item.precio), 0);
         
         receiptContent.innerHTML = `
             <div class="receipt">
-                <div class="receipt-header">
-                    <h4>Comedor Universitario</h4>
-                    <p>Comprobante de Pago</p>
-                </div>
-                
-                <div class="receipt-details">
-                    <div class="receipt-detail">
-                        <span>Código:</span>
-                        <span>${comprobante.codigo}</span>
-                    </div>
-                    <div class="receipt-detail">
-                        <span>Fecha:</span>
-                        <span>${comprobante.fecha.toLocaleString()}</span>
-                    </div>
-                    <div class="receipt-detail">
-                        <span>Método:</span>
-                        <span>${getPaymentMethodName(metodo.tipo)}</span>
-                    </div>
-                    ${metodo.tipo === 'tarjeta' ? `
-                    <div class="receipt-detail">
-                        <span>Tarjeta:</span>
-                        <span>**** **** **** ${metodo.ultimosDigitos}</span>
-                    </div>
-                    <div class="receipt-detail">
-                        <span>Titular:</span>
-                        <span>${metodo.titular}</span>
-                    </div>
-                    ` : ''}
-                    ${metodo.tipo === 'paypal' ? `
-                    <div class="receipt-detail">
-                        <span>PayPal:</span>
-                        <span>${metodo.email}</span>
-                    </div>
-                    ` : ''}
-                    ${metodo.tipo === 'efectivo_qr' ? `
-                    <div class="receipt-detail">
-                        <span>Código QR:</span>
-                        <span>${metodo.codigoQR.split('data=')[1].substring(0, 15)}...</span>
-                    </div>
-                    ` : ''}
-                </div>
+                <!-- ... encabezado y detalles existentes ... -->
                 
                 <div class="receipt-items">
                     <h5>Detalle de Compra</h5>
-                    ${cartItems.map(item => `
+                    ${carrito.map(item => `
                     <div class="receipt-item">
-                        <span>${item.name} x${item.quantity}</span>
-                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                        <span>${item.nombre}</span>
+                        <span>$${parseFloat(item.precio).toFixed(2)}</span>
                     </div>
                     `).join('')}
                 </div>
@@ -290,32 +279,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span>$${totalAmount.toFixed(2)}</span>
                 </div>
                 
-                <div class="receipt-footer">
-                    <p>¡Gracias por su compra!</p>
-                    <p>Presente este comprobante para retirar su pedido</p>
-                </div>
+                <!-- ... pie de página existente ... -->
             </div>
         `;
         
         receiptModal.classList.add('active');
     }
-    
-    // Obtener nombre del método de pago
-    function getPaymentMethodName(method) {
-        switch (method) {
-            case 'tarjeta': return 'Tarjeta de Crédito/Débito';
-            case 'efectivo_qr': return 'Pago QR';
-            case 'paypal': return 'PayPal';
-            default: return method;
-        }
-    }
-    
-    // Cerrar modal
-    closeModalButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            receiptModal.classList.remove('active');
-        });
-    });
     
     // Imprimir comprobante
     printReceiptButton.addEventListener('click', () => {
@@ -333,4 +302,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // Cargar datos iniciales
     loadCartItems();
     generateQRCode();
+
+document.addEventListener('DOMContentLoaded', () => {
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const cartItemsContainer = document.querySelector('.cart-items');
+    const totalAmount = document.querySelector('.total-amount');
+
+    let total = 0;
+
+    carrito.forEach(producto => {
+        const itemDiv = document.createElement('div');
+        itemDiv.classList.add('cart-item');
+        itemDiv.textContent = `${producto.nombre} - $${producto.precio}`;
+        cartItemsContainer.appendChild(itemDiv);
+        total += parseFloat(producto.precio);
+    });
+
+    totalAmount.textContent = `$${total.toFixed(2)}`;
 });

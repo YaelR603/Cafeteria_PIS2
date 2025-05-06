@@ -167,7 +167,8 @@ class MenuView {
         const comprarBtn = document.querySelector('.comprar-btn');
         if (comprarBtn) {
             comprarBtn.addEventListener('click', () => {
-                window.location.href = 'compra.html';
+                window.location.href = '../../Compras(Whole-Part)/VIEW/index.html';
+                
             });
         }
 
@@ -176,11 +177,22 @@ class MenuView {
         itemBtns.forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const itemName = e.target.getAttribute('data-item');
-                console.log(`Producto seleccionado: ${itemName}`);
-                // Aquí puedes añadir más funcionalidad si es necesario
-            });
+
+                const producto = this.menus.productos.items.find(item => item.nombre === itemName);
+
+            if (producto) {
+                // Emitir un evento personalizado con los datos del producto
+                document.dispatchEvent(new CustomEvent('productoSeleccionado', {
+                    detail: {
+                        nombre: producto.nombre,
+                        precio: producto.precio,
+                        tipo: producto.tipo
+                    }
+                }));
+            }
         });
-    }
+    });
+}
 
     capitalize(str) {
         return str.charAt(0).toUpperCase() + str.slice(1);
